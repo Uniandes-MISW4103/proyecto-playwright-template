@@ -9,14 +9,15 @@
     "misw"
   ],
   "main": "playwright.config.js",
+  "type": "module",
   "directories": {
     "test": "tests"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
-    "prepare": "npx playwright install",
+    "prepare": "npx playwright install chromium",
     "test": "npx playwright test",
     "test:ui": "npx playwright test --ui"
   },
