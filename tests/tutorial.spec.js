@@ -10,17 +10,17 @@ test("Test links between registration and login page", async ({
   baseURL,
 }) => {
   await page.getByRole("link", { name: "Cancel" }).click();
-  await page.screenshot({ path: "test-results/scheenshots/cancel.png" });
+  await page.screenshot({ path: "test-results/screenshots/cancel.png" });
   expect(page.url()).toEqual(`${baseURL}/login`);
 
   await page.getByRole("link", { name: "Register" }).click();
-  await page.screenshot({ path: "test-results/scheenshots/register.png" });
+  await page.screenshot({ path: "test-results/screenshots/register.png" });
   expect(page.url()).toEqual(`${baseURL}/register`);
 });
 
 test("Test form feedback", async ({ page }) => {
   await page.getByRole("button", { name: "Register" }).click();
-  await page.screenshot({ path: "test-results/scheenshots/form-feedback.png" });
+  await page.screenshot({ path: "test-results/screenshots/form-feedback.png" });
   const feedback = await page.locator("div.invalid-feedback").all();
   expect(feedback.length).toEqual(4);
 });
@@ -34,12 +34,12 @@ test("Create an user and login", async ({ page }) => {
   await page.getByRole("button", { name: "Register" }).click();
 
   await page.screenshot({
-    path: "test-results/scheenshots/success-feedback.png",
+    path: "test-results/screenshots/success-feedback.png",
   });
-  await page.locator("div.alert.alert-success").first().isVisible();
+  await expect(page.locator("div.alert.alert-success").first()).toBeVisible();
   await page.locator('input[formcontrolname="username"]').fill("pruebas");
   await page.locator('input[formcontrolname="password"]').fill("MISO4208");
   await page.getByRole("button", { name: "Login" }).click();
 
-  await page.getByRole("heading", { name: "Hi Monitor!" }).isVisible();
+  await expect(page.getByRole("heading", { name: "Hi Monitor!" })).toBeVisible();
 });
