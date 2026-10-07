@@ -10,19 +10,18 @@ test("Test links between registration and login page", async ({
   baseURL,
 }) => {
   await page.getByRole("link", { name: "Cancel" }).click();
+  await expect(page).toHaveURL(`${baseURL}/login`);
   await page.screenshot({ path: "test-results/screenshots/cancel.png" });
-  expect(page.url()).toEqual(`${baseURL}/login`);
 
   await page.getByRole("link", { name: "Register" }).click();
+  await expect(page).toHaveURL(`${baseURL}/register`);
   await page.screenshot({ path: "test-results/screenshots/register.png" });
-  expect(page.url()).toEqual(`${baseURL}/register`);
 });
 
 test("Test form feedback", async ({ page }) => {
   await page.getByRole("button", { name: "Register" }).click();
+  await expect(page.locator("div.invalid-feedback")).toHaveCount(4);
   await page.screenshot({ path: "test-results/screenshots/form-feedback.png" });
-  const feedback = await page.locator("div.invalid-feedback").all();
-  expect(feedback.length).toEqual(4);
 });
 
 test("Create an user and login", async ({ page }) => {
